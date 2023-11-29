@@ -10,7 +10,7 @@ interface Note {
 }
 
 const App = () => {
-
+  
   
   const [notes, setNotes] = useState<Note[]>([
     {
@@ -47,10 +47,29 @@ const App = () => {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState(""); 
+
+    const handleAddNote = (event: React.FormEvent) => {
+      event.preventDefault();
+
+      const newNote: Note = {
+        id: notes.length + 1,
+        title: title,
+        content: content,
+      };
+
+      console.log("title: ", title);
+      console.log("content: ", content);
+
+
+      setNotes([newNote, ...notes]);
+      setTitle("");
+      setContent("");
+    }
+
   
   return (
     <div className="app-container">
-      <form className='note-form'>
+      <form className='note-form' onSubmit={handleAddNote}>
         <input 
           value={title}
           onChange={(event)=> setTitle(event.target.value)} 
